@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.hitech.hitech.ClientDialogController">
+    <children>
+        <!-- Title -->
+        <Label layoutX="20.0" layoutY="20.0" text="Ajouter un Client" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- Client Type Selection -->
+        <HBox layoutX="20.0" layoutY="70.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0">
+            <children>
+                <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Type de Client:">
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </Label>
+                <RadioButton fx:id="radioPP" selected="true" style="-fx-font-size: 13px;" text="Personne Physique">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="clientTypeGroup" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="radioPM" style="-fx-font-size: 13px;" text="Personne Morale" toggleGroup="$clientTypeGroup" />
+            </children>
+        </HBox>
+
+        <!-- Form Container -->
+        <VBox layoutX="20.0" layoutY="120.0" spacing="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
+            <children>
+                <!-- Common Fields Section -->
+                <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Informations Générales" />
+
+                <!-- ID Field -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label minWidth="120.0" style="-fx-font-size: 13px;" text="ID:" />
+                        <TextField fx:id="txtId" promptText="Identifiant" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                <!-- Address Field -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Adresse:" />
+                        <TextField fx:id="txtAdresse" promptText="Adresse complète" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                <!-- Email Field -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Email:" />
+                        <TextField fx:id="txtEmail" promptText="exemple@email.com" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                <!-- Phone Field -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Téléphone:" />
+                        <TextField fx:id="txtTelephone" promptText="Numéro de téléphone" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                <Separator />
+
+                <!-- Person Physical Fields (visible by default) -->
+                <VBox fx:id="vboxPP" spacing="15.0">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Informations Personne Physique" />
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Nom:" />
+                                <TextField fx:id="txtNom" promptText="Nom de famille" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Prénom:" />
+                                <TextField fx:id="txtPrenom" promptText="Prénom" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <!-- Person Moral Fields (hidden by default) -->
+                <VBox fx:id="vboxPM" managed="false" spacing="15.0" visible="false">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Informations Personne Morale" />
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Matricule:" />
+                                <TextField fx:id="txtMatricule" promptText="Matricule fiscale" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label minWidth="120.0" style="-fx-font-size: 13px;" text="Raison Sociale:" />
+                                <TextField fx:id="txtRaisonSociale" promptText="Nom de l'entreprise" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <!-- Action Buttons -->
+        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="490.0" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <children>
+                <Button fx:id="btnAnnuler" prefWidth="100.0" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Annuler">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnAjouter" prefWidth="100.0" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Ajouter">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</AnchorPane>

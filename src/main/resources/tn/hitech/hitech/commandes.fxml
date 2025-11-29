@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.hitech.hitech.CommandeTableController">
+    <children>
+        <!-- Header Section -->
+        <VBox layoutX="0.0" layoutY="0.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+            <children>
+                <!-- Title -->
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Mes Commandes" />
+
+                <!-- Search and Action Bar -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Client:" />
+                        <Label fx:id="lblClientInfo" style="-fx-font-size: 14px; -fx-text-fill: #2196F3;" text="Nom du client" />
+
+                        <!-- Spacer -->
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Action Buttons -->
+                        <Button fx:id="btnAdd" style="-fx-font-size: 13px; -fx-cursor: hand;" text="+ Nouvelle Commande">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+
+                        <Button fx:id="btnView" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Voir Détails">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+
+                        <Button fx:id="btnDelete" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Annuler">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+
+                <!-- Filter Section -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Statut:" />
+                        <RadioButton fx:id="radioAll" selected="true" style="-fx-font-size: 12px;" text="Toutes">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="filterGroup" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioEnCours" style="-fx-font-size: 12px;" text="En cours" toggleGroup="$filterGroup" />
+                        <RadioButton fx:id="radioLivree" style="-fx-font-size: 12px;" text="Livrée" toggleGroup="$filterGroup" />
+                        <RadioButton fx:id="radioAnnulee" style="-fx-font-size: 12px;" text="Annulée" toggleGroup="$filterGroup" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Table Section -->
+        <TableView fx:id="tableCommandes" layoutX="20.0" layoutY="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
+            <columns>
+                <TableColumn fx:id="colNumero" prefWidth="120.0" text="N° Commande" />
+                <TableColumn fx:id="colDate" prefWidth="120.0" text="Date" />
+                <TableColumn fx:id="colStatut" prefWidth="120.0" text="Statut" />
+                <TableColumn fx:id="colMontantTotal" prefWidth="130.0" text="Montant Total" />
+                <TableColumn fx:id="colNbProduits" prefWidth="100.0" text="Nb Produits" />
+                <TableColumn fx:id="colDateLivraison" prefWidth="130.0" text="Date Livraison" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- Status Bar -->
+        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="550.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <children>
+                <Label fx:id="lblStatus" style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Total: 0 commandes" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="btnRefresh" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Actualiser">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

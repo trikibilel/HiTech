@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.hitech.hitech.CommandeDialogController">
+    <children>
+        <!-- Title -->
+        <Label layoutX="20.0" layoutY="20.0" text="Nouvelle Commande" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- Main Content -->
+        <VBox layoutX="20.0" layoutY="70.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+            <children>
+                <!-- Order Information Section -->
+                <VBox spacing="15.0" style="-fx-border-color: #E0E0E0; -fx-border-radius: 5; -fx-background-color: #FAFAFA; -fx-background-radius: 5;">
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2196F3;" text="Informations de la Commande" />
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <!-- Date Commande -->
+                                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Date de Commande *" />
+                                        <DatePicker fx:id="dateCommande" prefWidth="250.0" promptText="Sélectionner une date" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Date Livraison -->
+                                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Date de Livraison Prévue" />
+                                        <DatePicker fx:id="dateLivraison" prefWidth="250.0" promptText="Sélectionner une date" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Adresse Livraison -->
+                        <VBox spacing="5.0">
+                            <children>
+                                <Label style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Adresse de Livraison *" />
+                                <TextField fx:id="txtAdresseLivraison" promptText="Adresse complète de livraison" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Articles Section -->
+                <VBox spacing="10.0" style="-fx-border-color: #E0E0E0; -fx-border-radius: 5; -fx-background-color: #FAFAFA; -fx-background-radius: 5;">
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2196F3;" text="Articles de la Commande" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="btnAddArticle" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="+ Ajouter Article">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+
+                        <!-- Article Selection Form -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 3; -fx-background-radius: 3;">
+                            <children>
+                                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-size: 12px;" text="Article" />
+                                        <ComboBox fx:id="comboArticle" prefWidth="300.0" promptText="Sélectionner un article" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label style="-fx-font-size: 12px;" text="Prix Unitaire" />
+                                        <TextField fx:id="txtPrixUnitaire" editable="false" prefWidth="120.0" promptText="Prix" style="-fx-background-color: #F5F5F5;" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label style="-fx-font-size: 12px;" text="Quantité" />
+                                        <Spinner fx:id="spinnerQuantite" editable="true" prefWidth="100.0" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label style="-fx-font-size: 12px;" text="Total" />
+                                        <TextField fx:id="txtTotalLigne" editable="false" prefWidth="120.0" promptText="Total" style="-fx-background-color: #F5F5F5; -fx-font-weight: bold;" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Articles Table -->
+                        <TableView fx:id="tableArticles" prefHeight="250.0">
+                            <columns>
+                                <TableColumn fx:id="colArticleNom" prefWidth="250.0" text="Article" />
+                                <TableColumn fx:id="colArticleReference" prefWidth="120.0" text="Référence" />
+                                <TableColumn fx:id="colPrixUnitaire" prefWidth="120.0" text="Prix Unitaire" />
+                                <TableColumn fx:id="colQuantite" prefWidth="100.0" text="Quantité" />
+                                <TableColumn fx:id="colTotal" prefWidth="120.0" text="Total" />
+                                <TableColumn fx:id="colActions" prefWidth="100.0" text="Actions" />
+                            </columns>
+                        </TableView>
+
+                        <!-- Summary -->
+                        <HBox alignment="CENTER_RIGHT" spacing="20.0" style="-fx-background-color: #E3F2FD; -fx-padding: 10; -fx-border-radius: 3; -fx-background-radius: 3;">
+                            <children>
+                                <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Nombre d'articles:" />
+                                <Label fx:id="lblNbArticles" style="-fx-font-size: 14px; -fx-text-fill: #1976D2;" text="0" />
+
+                                <Separator orientation="VERTICAL" />
+
+                                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Montant Total:" />
+                                <Label fx:id="lblMontantTotal" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;" text="0.00 DT" />
+                            </children>
+                        </HBox>
+            
+                    <!-- Action Buttons -->
+                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                        <children>
+                            <Button fx:id="btnAnnuler" prefWidth="120.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;" text="Annuler">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Button>
+                            <Button fx:id="btnEnregistrer" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;" text="Enregistrer">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</AnchorPane>

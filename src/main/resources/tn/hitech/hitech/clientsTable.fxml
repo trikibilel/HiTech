@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.hitech.hitech.ClientTableController">
+    <children>
+        <!-- Header Section -->
+        <VBox layoutX="0.0" layoutY="0.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+            <children>
+                <!-- Title -->
+                <Label style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Liste des Clients" />
+
+                <!-- Filter Section -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Label style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Type de Client:" />
+                        <RadioButton fx:id="radioAll" selected="true" style="-fx-font-size: 12px;" text="Tous">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="filterGroup" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioPP" style="-fx-font-size: 12px;" text="Personne Physique" toggleGroup="$filterGroup" />
+                        <RadioButton fx:id="radioPM" style="-fx-font-size: 12px;" text="Personne Morale" toggleGroup="$filterGroup" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Table Section -->
+        <TableView fx:id="tableClients" editable="true" layoutX="20.0" layoutY="170.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="60.0" text="ID" />
+                <TableColumn fx:id="colType" prefWidth="120.0" text="Type" />
+                <TableColumn fx:id="colName" prefWidth="180.0" text="Nom/Raison Sociale" />
+                <TableColumn fx:id="colAdresse" prefWidth="180.0" text="Adresse" />
+                <TableColumn fx:id="colEmail" prefWidth="150.0" text="Email" />
+                <TableColumn fx:id="colTelephone" prefWidth="120.0" text="Téléphone" />
+                <TableColumn fx:id="colDetails" prefWidth="90.0" text="Détails" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- Status Bar -->
+        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="550.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <children>
+                <Label fx:id="lblStatus" style="-fx-font-size: 13px; -fx-font-weight: bold;" text="Total: 0 clients" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="btnRefresh" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Actualiser">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

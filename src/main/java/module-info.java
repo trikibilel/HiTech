@@ -1,0 +1,16 @@
+module tn.hitech.hitech {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    requires org.controlsfx.controls;
+    requires com.dlsc.formsfx;
+    requires net.synedra.validatorfx;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
+    requires javafx.graphics;
+
+    opens tn.hitech.hitech to javafx.fxml;
+    opens tn.hitech.Models to javafx.base;
+    exports tn.hitech.hitech;
+}

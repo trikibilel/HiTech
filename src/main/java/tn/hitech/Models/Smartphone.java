@@ -8,6 +8,12 @@ public class Smartphone extends Article {
     private double taille_ecran;
 
     public Smartphone() {
+        super();
+        this.marque = "marque";
+        this.stockage = 128;
+        this.ram = 4;
+        this.os = "os";
+        this.taille_ecran = 5;
     }
 
     public Smartphone(int refArticle, String designation, String image, double prixHt, int qteStock, int promo, String marque, int stockage, int ram, String os, double tailleEcran) {
@@ -61,7 +67,7 @@ public class Smartphone extends Article {
 
     @Override
     public void afficher() {
-        System.out.println("Le smartphone " + getDesignation() +
+        System.out.println("## Le smartphone " + getDesignation() +
                 " de marque " + marque +
                 " fonctionne sous " + os +
                 ", dispose de " + ram + " Go de RAM, " +

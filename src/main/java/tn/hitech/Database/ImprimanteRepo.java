@@ -59,7 +59,6 @@ public class ImprimanteRepo {
             }
 
             conn.commit();
-            System.out.println("✅ Printer inserted successfully with ID: " + refArticle);
             return true;
 
         } catch (SQLException e) {

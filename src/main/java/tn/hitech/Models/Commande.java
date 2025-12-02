@@ -5,18 +5,23 @@ import java.util.List;
 
 public class Commande {
     private int id;
-    private String dateCde;
-    private String dateLiv;
+    private Date dateCde;
+    private Date dateLiv;
     private Etat etatCde;
     private PayMethode moyenPayement;
-    private List<LigneCmd> ligneCmds=new ArrayList<>();
+    private List<LigneCmd> ligneCmds = new ArrayList<>();
     private Client client;
 
     public Commande() {
+        this.id = 1;
+        this.dateCde = new Date(22, 12, 2025);
+        this.dateLiv = new Date(23, 12, 2025);
         this.etatCde = Etat.CREE;
+        this.moyenPayement = PayMethode.CARTE;
+        this.client = new Client();
     }
 
-    public Commande(int id, String dateCde, String dateLiv, PayMethode moyenPayement, Client client) {
+    public Commande(int id, Date dateCde, Date dateLiv, PayMethode moyenPayement, Client client) {
         this.id = id;
         this.dateCde = dateCde;
         this.dateLiv = dateLiv;
@@ -33,19 +38,19 @@ public class Commande {
         this.id = id;
     }
 
-    public String getDateCde() {
+    public Date getDateCde() {
         return dateCde;
     }
 
-    public void setDateCde(String dateCde) {
+    public void setDateCde(Date dateCde) {
         this.dateCde = dateCde;
     }
 
-    public String getDateLiv() {
+    public Date getDateLiv() {
         return dateLiv;
     }
 
-    public void setDateLiv(String dateLiv) {
+    public void setDateLiv(Date dateLiv) {
         this.dateLiv = dateLiv;
     }
 
@@ -82,9 +87,9 @@ public class Commande {
     }
 
     public double getCommandeTotal() {
-        double total=0;
+        double total = 0;
         for (LigneCmd ligneCmd : ligneCmds) {
-            total+=ligneCmd.getTotalTtcLigne();
+            total += ligneCmd.getTotalTtcLigne();
         }
         return total;
     }
@@ -104,7 +109,7 @@ public class Commande {
     }
 
     public void afficher() {
-        System.out.println("=== Commande n°" + id + " ===");
+        System.out.println("==".repeat(10) + " Commande n°" + id + "==".repeat(10));
         System.out.println("Date de commande: " + dateCde);
         System.out.println("Date de livraison prévue: " + dateLiv);
         System.out.println("État: " + etatCde.name());
@@ -114,7 +119,8 @@ public class Commande {
         System.out.println("\nArticles commandés:");
         ligneCmds.forEach(LigneCmd::afficher);
         System.out.println("\nTotal de la commande: " + getCommandeTotal() + " DT TTC");
-        System.out.println("=".repeat(50));
+        System.out.println("=".repeat(20) + "fin commande " + id + "=".repeat(20));
+        System.out.println();
     }
 
     public String toString() {

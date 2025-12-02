@@ -56,7 +56,6 @@ public class ClientPMRepo {
             }
 
             conn.commit();
-            System.out.println("✅ Corporate client inserted successfully with ID: " + clientId);
             return true;
 
         } catch (SQLException e) {
@@ -126,7 +125,6 @@ public class ClientPMRepo {
                 clientPMList.add(mapResultSetToClientPM(rs));
             }
 
-            System.out.println("✅ Retrieved " + clientPMList.size() + " corporal clients");
 
         } catch (SQLException e) {
             System.err.println("❌ Error retrieving corporal clients: " + e.getMessage());

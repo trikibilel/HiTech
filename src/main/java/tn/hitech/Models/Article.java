@@ -11,6 +11,12 @@ public class Article {
     private int promo;
 
     public Article() {
+        refArticle = 1;
+        designation = "designation";
+        image = "image";
+        prixHt = 100;
+        qteStock = 10;
+        promo = 0;
     }
 
     public Article(int refArticle, String designation, String image, double prixHt, int qteStock, int promo) {
@@ -68,15 +74,15 @@ public class Article {
     }
 
     public void setPromo(int promo) {
-        if (promo >= 0 && promo <100) this.promo = promo;
+        if (promo >= 0 && promo < 100) this.promo = promo;
     }
 
     public boolean hasPromo() {
         return promo != 0;
     }
 
-    public double calculerPrixTtc() {
-        return prixHt * (1 - (double) promo / 100) * (1 + TVA);
+    public double calculerPrixTtc(int qte) {
+        return prixHt * qte * (1 - (double) promo / 100) * (1 + TVA);
     }
 
     public boolean isDisponible() {
@@ -88,7 +94,8 @@ public class Article {
     }
 
     public void afficher() {
-        System.out.println("L'article " + designation + " (réf: " + refArticle + ") " +
+        System.out.println();
+        System.out.println("## L'article " + designation + " (réf: " + refArticle + ") " +
                 "est au prix de " + prixHt + " DT HT " +
                 (hasPromo() ? "avec une promotion de " + promo + "% " : "") +
                 "et il y a " + qteStock + " unités en stock.");

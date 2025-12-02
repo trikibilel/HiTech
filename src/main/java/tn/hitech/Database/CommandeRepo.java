@@ -4,6 +4,7 @@ package tn.hitech.Database;
 import tn.hitech.Database.config.DbConnection;
 import tn.hitech.Models.Client;
 import tn.hitech.Models.Commande;
+import tn.hitech.Models.Date;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class CommandeRepo {
         try (Connection conn = DbConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, commande.getDateCde());
-            pstmt.setString(2, commande.getDateLiv());
+            pstmt.setString(1, commande.getDateCde().toString());
+            pstmt.setString(2, commande.getDateLiv().toString());
             pstmt.setString(3, commande.getEtatCde().name());
             pstmt.setString(4, commande.getMoyenPayement().name());
             pstmt.setInt(5, commande.getClient().getId());
@@ -36,7 +37,6 @@ public class CommandeRepo {
                         commande.setId(rs.getInt(1));
                     }
                 }
-                System.out.println("✅ Order inserted successfully with ID: " + commande.getId());
                 return true;
             }
 
@@ -58,7 +58,6 @@ public class CommandeRepo {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("✅ Order status updated successfully: " + id);
                 return true;
             }
 
@@ -132,8 +131,8 @@ public class CommandeRepo {
     private Commande mapResultSetToCommande(ResultSet rs) throws SQLException {
         Commande commande = new Commande();
         commande.setId(rs.getInt("id"));
-        commande.setDateCde(rs.getString("date_cde"));
-        commande.setDateLiv(rs.getString("date_liv"));
+        commande.setDateCde(new Date(rs.getString("date_cde")));
+        commande.setDateLiv(new Date(rs.getString("date_liv")));
         commande.setEtatCde(Commande.Etat.valueOf(rs.getString("etat_cde")));
         commande.setMoyenPayement(Commande.PayMethode.valueOf(rs.getString("moyen_payement")));
 

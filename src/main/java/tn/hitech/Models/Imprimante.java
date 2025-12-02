@@ -6,6 +6,10 @@ public class Imprimante extends Article {
     private int pageParMinute;
 
     public Imprimante() {
+        super();
+        this.type = Type.JETENCRE;
+        this.marque = "marque";
+        pageParMinute = 20;
     }
 
     public Imprimante(int refArticle, String designation, String image, double prixHt, int qteStock, int promo, Type type, String marque, int page_par_minute) {
@@ -41,7 +45,7 @@ public class Imprimante extends Article {
 
     @Override
     public void afficher() {
-        System.out.println("L'imprimante " + getDesignation() +
+        System.out.println("## L'imprimante " + getDesignation() +
                 " de marque " + marque +
                 " est de type " + type.name() +
                 " et imprime " + pageParMinute + " pages par minute. " +

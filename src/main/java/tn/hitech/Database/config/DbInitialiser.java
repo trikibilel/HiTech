@@ -16,7 +16,7 @@ public class DbInitialiser {
     }
 
     public static void createTables(Connection conn, Statement stmt) throws SQLException {
-        System.out.println("Starting table creation...");
+        //System.out.println("Starting table creation...");
         // 1. Create clients table (parent table for inheritance)
         String clientsTable = """
                     CREATE TABLE IF NOT EXISTS clients (
@@ -165,7 +165,7 @@ public class DbInitialiser {
     public static void dropAllTables() {
         try (Connection conn = DbConnection.getConnection(); Statement stmt = conn.createStatement()) {
 
-            System.out.println("⚠️  Dropping all tables...");
+            //System.out.println("⚠️  Dropping all tables...");
 
             // Disable foreign key checks temporarily
             stmt.executeUpdate("SET FOREIGN_KEY_CHECKS = 0");
@@ -180,7 +180,7 @@ public class DbInitialiser {
             // Re-enable foreign key checks
             stmt.executeUpdate("SET FOREIGN_KEY_CHECKS = 1");
 
-            System.out.println("All tables dropped successfully!");
+            //System.out.println("All tables dropped successfully!");
 
         } catch (Exception e) {
             System.err.println("Error dropping tables:");

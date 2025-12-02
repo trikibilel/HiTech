@@ -5,6 +5,9 @@ public class ClientPM extends Client {
     private String raisonSociale;
 
     public ClientPM() {
+        super();
+        this.matricule = "matricule";
+        this.raisonSociale = "raisonSociale";
     }
 
     public ClientPM(int id, String adresse, String email, int telephone, String matricule, String raisonSociale) {
@@ -32,7 +35,7 @@ public class ClientPM extends Client {
 
     @Override
     public void afficher() {
-        System.out.println("La société " + raisonSociale +
+        System.out.println("## La société " + raisonSociale +
                 " (matricule: " + matricule + ") " +
                 "est située à " + getAdresse() +
                 ", son email est " + getEmail() +

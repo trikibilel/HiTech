@@ -8,17 +8,22 @@ public class LigneCmd {
     private Commande commande;
 
 
-    public LigneCmd(int id, int qte, Article article, Commande commande) {
-        this.id = id;
-        this.qte = qte;
-        this.totalTtcLigne = article.calculerPrixTtc() * qte;
-        this.article = article;
-        this.commande = commande;
+    public LigneCmd() {
+        this.id = 1;
+        this.qte = 10;
+        this.totalTtcLigne = article.calculerPrixTtc(qte);
+        this.article = new Article();
+        this.commande = new Commande();
         this.commande.getLigneCmds().add(this);
     }
 
-    public LigneCmd() {
-
+    public LigneCmd(int id, int qte, Article article, Commande commande) {
+        this.id = id;
+        this.qte = qte;
+        this.totalTtcLigne = article.calculerPrixTtc(qte);
+        this.article = article;
+        this.commande = commande;
+        this.commande.getLigneCmds().add(this);
     }
 
     public int getId() {

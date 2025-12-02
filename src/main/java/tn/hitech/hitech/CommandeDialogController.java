@@ -11,10 +11,7 @@ import javafx.stage.Stage;
 import tn.hitech.Database.ArticleRepo;
 import tn.hitech.Database.CommandeRepo;
 import tn.hitech.Database.LigneCmdRepo;
-import tn.hitech.Models.Article;
-import tn.hitech.Models.Client;
-import tn.hitech.Models.Commande;
-import tn.hitech.Models.LigneCmd;
+import tn.hitech.Models.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -336,8 +333,8 @@ public class CommandeDialogController {
 
         // Create Commande object
         commandeResult.setClient(currentClient);
-        commandeResult.setDateCde(String.valueOf(dateCommande.getValue()));
-        commandeResult.setDateLiv(String.valueOf(dateLivraison.getValue()));
+        commandeResult.setDateCde(new Date(String.valueOf(dateCommande.getValue())));
+        commandeResult.setDateLiv(new Date(String.valueOf(dateLivraison.getValue())));
         commandeResult.setLigneCmds(FXCollections.observableArrayList(lignesCommande));
         commandeResult.setMoyenPayement(Commande.PayMethode.CARTE);
         commandeRepo.insert(commandeResult);

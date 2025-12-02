@@ -61,7 +61,6 @@ public class SmartphoneRepo {
             }
 
             conn.commit();
-            System.out.println("✅ Smartphone inserted successfully with ID: " + refArticle);
             return true;
 
         } catch (SQLException e) {

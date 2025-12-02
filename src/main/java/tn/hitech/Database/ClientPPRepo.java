@@ -56,7 +56,6 @@ public class ClientPPRepo {
             }
 
             conn.commit();
-            System.out.println("✅ Individual client inserted successfully with ID: " + clientId);
             return true;
 
         } catch (SQLException e) {
@@ -123,7 +122,6 @@ public class ClientPPRepo {
                 clientPPList.add(mapResultSetToClientPP(rs));
             }
 
-            System.out.println("✅ Retrieved " + clientPPList.size() + " individual clients");
 
         } catch (SQLException e) {
             System.err.println("❌ Error retrieving individual clients: " + e.getMessage());

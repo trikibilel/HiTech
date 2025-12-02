@@ -36,7 +36,6 @@ public class LigneCmdRepo {
                         ligneCmd.setId(rs.getInt(1));
                     }
                 }
-                System.out.println("✅ Order line inserted successfully with ID: " + ligneCmd.getId());
                 return true;
             }
 

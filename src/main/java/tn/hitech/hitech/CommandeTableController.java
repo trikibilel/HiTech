@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import tn.hitech.Database.ArticleRepo;
 import tn.hitech.Database.CommandeRepo;
 import tn.hitech.Database.LigneCmdRepo;
 import tn.hitech.Models.*;
@@ -21,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 public class CommandeTableController {
 
     private final DecimalFormat moneyFormat = new DecimalFormat("#,##0.00");
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     @FXML
     private Label lblClientInfo;
     @FXML
@@ -63,11 +63,13 @@ public class CommandeTableController {
     private Client currentClient;
     private CommandeRepo commandeRepo;
     private LigneCmdRepo ligneCmdRepo;
+    private ArticleRepo  articleRepo;
 
     @FXML
     public void initialize() {
         commandeRepo = new CommandeRepo();
         ligneCmdRepo = new LigneCmdRepo();
+        articleRepo = new ArticleRepo();
         commandeList = FXCollections.observableArrayList();
         filteredList = FXCollections.observableArrayList();
 
@@ -103,7 +105,7 @@ public class CommandeTableController {
         colDate.setCellValueFactory(cellData -> {
             if (cellData.getValue().getDateCde() != null) {
                 return new SimpleStringProperty(
-                        cellData.getValue().getDateCde()
+                        cellData.getValue().getDateCde().toString()
                 );
             }
             return new SimpleStringProperty("");
@@ -139,7 +141,7 @@ public class CommandeTableController {
         // Date de livraison
         colDateLivraison.setCellValueFactory(cellData -> {
             if (cellData.getValue().getDateLiv() != null) {
-                return new SimpleStringProperty(cellData.getValue().getDateLiv());
+                return new SimpleStringProperty(cellData.getValue().getDateLiv().toString());
             }
             return new SimpleStringProperty("-");
         });
@@ -256,9 +258,10 @@ public class CommandeTableController {
 
         if (confirmAlert.showAndWait().get() == ButtonType.OK) {
             commandeRepo.updateStatus(selectedCommande.getId(), Commande.Etat.ANNULEE.name());
-
+            selectedCommande.getLigneCmds().forEach(ligneCmd -> {
+                articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(),ligneCmd.getArticle().getQteStock()+ligneCmd.getQte());
+            });
             applyFilter();
-            showInfo("Succès", "Commande annulée avec succès!");
         }
     }
 

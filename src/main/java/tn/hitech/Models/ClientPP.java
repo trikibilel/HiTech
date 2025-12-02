@@ -5,6 +5,9 @@ public class ClientPP extends Client {
     private String prenom;
 
     public ClientPP() {
+        super();
+        this.nom = "nom";
+        this.prenom = "prenom";
     }
 
     public ClientPP(int id, String adresse, String email, int telephone, String nom, String prenom) {
@@ -31,7 +34,7 @@ public class ClientPP extends Client {
 
     @Override
     public void afficher() {
-        System.out.println("Le client " + prenom + " " + nom +
+        System.out.println("## Le client " + prenom + " " + nom +
                 " (ID: " + getId() + ") habite à " + getAdresse() +
                 ", son email est " + getEmail() +
                 " et son téléphone est " + getTelephone() + ".");

@@ -32,7 +32,6 @@ public class ArticleRepo {
                         article.setRefArticle(rs.getInt(1));
                     }
                 }
-                System.out.println("✅ Article inserted successfully with ID: " + article.getRefArticle());
                 return true;
             }
 
@@ -205,7 +204,6 @@ public class ArticleRepo {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("✅ Stock updated successfully for article: " + refArticle);
                 return true;
             }
 

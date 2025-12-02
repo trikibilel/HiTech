@@ -7,6 +7,10 @@ public class Client {
     private int telephone;
 
     public Client() {
+        this.id = 1;
+        this.adresse = "adresse";
+        this.email = "email@gmail.com";
+        this.telephone = 000000000;
     }
 
     public Client(int id, String adresse, String email, int telephone) {
@@ -14,7 +18,6 @@ public class Client {
         this.adresse = adresse;
         this.email = email;
         this.telephone = telephone;
-
     }
 
     public int getId() {
@@ -50,7 +53,8 @@ public class Client {
     }
 
     public void afficher() {
-        System.out.println("Le client n°" + id + " habite à " + adresse +
+        System.out.println();
+        System.out.println("## Le client n°" + id + " habite à " + adresse +
                 ", son email est " + email +
                 " et son téléphone est " + telephone + ".");
     }

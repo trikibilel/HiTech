@@ -32,7 +32,6 @@ public class ClientRepo {
                         client.setId(rs.getInt(1));
                     }
                 }
-                System.out.println("✅ Client inserted successfully with ID: " + client.getId());
                 return true;
             }
 

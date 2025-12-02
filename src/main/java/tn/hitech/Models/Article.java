@@ -68,7 +68,7 @@ public class Article {
     }
 
     public void setPromo(int promo) {
-        if (promo >= 0) this.promo = promo;
+        if (promo >= 0 && promo <100) this.promo = promo;
     }
 
     public boolean hasPromo() {
@@ -87,6 +87,11 @@ public class Article {
         qteStock += qte;
     }
 
-    public void afficher() {}
+    public void afficher() {
+        System.out.println("L'article " + designation + " (réf: " + refArticle + ") " +
+                "est au prix de " + prixHt + " DT HT " +
+                (hasPromo() ? "avec une promotion de " + promo + "% " : "") +
+                "et il y a " + qteStock + " unités en stock.");
+    }
 }
 

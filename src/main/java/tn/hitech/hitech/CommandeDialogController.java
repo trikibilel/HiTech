@@ -344,6 +344,7 @@ public class CommandeDialogController {
         commandeResult.getLigneCmds().forEach(ligneCmdRepo::insert);
 
         isConfirmed = true;
+        
         closeDialog();
     }
 

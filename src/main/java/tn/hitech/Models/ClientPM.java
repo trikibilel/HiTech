@@ -32,12 +32,11 @@ public class ClientPM extends Client {
 
     @Override
     public void afficher() {
-        System.out.println("-".repeat(20 * 6));
-        System.out.print("| " + raisonSociale + " ".repeat(20 - raisonSociale.length()) + " |");
-        System.out.print("| " + matricule + " ".repeat(20 - matricule.length()) + " |");
-        System.out.print("| " + getAdresse() + " ".repeat(20 - getAdresse().length()) + " |");
-        System.out.print("| " + getTelephone() + " ".repeat(20 - String.valueOf(getTelephone()).length()) + " |");
-        System.out.println("| " + getEmail() + " ".repeat(20 - getEmail().length()) + " |");
+        System.out.println("La société " + raisonSociale +
+                " (matricule: " + matricule + ") " +
+                "est située à " + getAdresse() +
+                ", son email est " + getEmail() +
+                " et son téléphone est " + getTelephone() + ".");
     }
 
     public String toString() {

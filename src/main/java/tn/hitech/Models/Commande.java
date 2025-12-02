@@ -104,15 +104,17 @@ public class Commande {
     }
 
     public void afficher() {
-        int colSize = 15;
-        System.out.println("=".repeat(colSize * 4));
+        System.out.println("=== Commande n°" + id + " ===");
+        System.out.println("Date de commande: " + dateCde);
+        System.out.println("Date de livraison prévue: " + dateLiv);
+        System.out.println("État: " + etatCde.name());
+        System.out.println("Moyen de paiement: " + moyenPayement.name());
+        System.out.println("\nClient:");
         client.afficher();
-        System.out.println("*".repeat(colSize * 4));
-        System.out.print("| " + dateCde + " ".repeat(colSize - dateCde.length()) + " |");
-        System.out.println("| " + moyenPayement.name() + " ".repeat(colSize - moyenPayement.name().length()) + " |");
-        System.out.println("=".repeat(colSize * 4));
+        System.out.println("\nArticles commandés:");
         ligneCmds.forEach(LigneCmd::afficher);
-        System.out.println("-".repeat(colSize * 10));
+        System.out.println("\nTotal de la commande: " + getCommandeTotal() + " DT TTC");
+        System.out.println("=".repeat(50));
     }
 
     public String toString() {

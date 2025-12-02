@@ -41,15 +41,13 @@ public class Imprimante extends Article {
 
     @Override
     public void afficher() {
-        int colSize = 20;
-        System.out.println("-".repeat(colSize * 8));
-        System.out.print("| " + getDesignation() + " ".repeat(colSize - getDesignation().length()) + " |");
-        System.out.print("| " + getPrixHt() + " ".repeat(colSize - String.valueOf(getPrixHt()).length()) + " |");
-        System.out.print("| " + getPromo() + " ".repeat(colSize - String.valueOf(getPromo()).length()) + " |");
-        System.out.println("| " + getQteStock() + " ".repeat(colSize - String.valueOf(getQteStock()).length()) + " |");
-        System.out.print("| " + getType().name() + " ".repeat(colSize - getType().name().length()) + " |");
-        System.out.print("| " + getMarque() + " ".repeat(colSize - getMarque().length()) + " |");
-        System.out.print("| " + getPageParMinute() + " ".repeat(colSize - String.valueOf(getPageParMinute()).length()) + " |");
+        System.out.println("L'imprimante " + getDesignation() +
+                " de marque " + marque +
+                " est de type " + type.name() +
+                " et imprime " + pageParMinute + " pages par minute. " +
+                "Elle est au prix de " + getPrixHt() + " DT HT " +
+                (hasPromo() ? "avec " + getPromo() + "% de réduction " : "") +
+                "et il reste " + getQteStock() + " unités en stock.");
     }
 
     public String toString() {

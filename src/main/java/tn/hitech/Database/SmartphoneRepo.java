@@ -10,8 +10,6 @@ import java.util.List;
 
 public class SmartphoneRepo {
 
-    private final ArticleRepo articleDAO = new ArticleRepo();
-
     public boolean insert(Smartphone smartphone) {
         Connection conn = null;
         try {
@@ -20,8 +18,8 @@ public class SmartphoneRepo {
 
             // First, insert into articles table
             String articleSql = """
-                        INSERT INTO articles (designation, image, prix_ht, qte_stock, promo)
-                        VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO articles (designation, image, prix_ht, qte_stock, promo, product_type)
+                        VALUES (?, ?, ?, ?, ?, ?)
                     """;
 
             int refArticle;
@@ -31,6 +29,7 @@ public class SmartphoneRepo {
                 pstmt.setDouble(3, smartphone.getPrixHt());
                 pstmt.setInt(4, smartphone.getQteStock());
                 pstmt.setInt(5, smartphone.getPromo());
+                pstmt.setString(6, "smartphone");
 
                 pstmt.executeUpdate();
 
@@ -134,7 +133,7 @@ public class SmartphoneRepo {
         return smartphones;
     }
 
-    private Smartphone mapResultSetToSmartphone(ResultSet rs) throws SQLException {
+    protected static Smartphone mapResultSetToSmartphone(ResultSet rs) throws SQLException {
         Smartphone smartphone = new Smartphone();
         smartphone.setRefArticle(rs.getInt("ref_article"));
         smartphone.setDesignation(rs.getString("designation"));

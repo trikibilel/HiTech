@@ -103,7 +103,7 @@ public class CommandeTableController {
         colDate.setCellValueFactory(cellData -> {
             if (cellData.getValue().getDateCde() != null) {
                 return new SimpleStringProperty(
-                        cellData.getValue().getDateCde().format(String.valueOf(dateFormatter))
+                        cellData.getValue().getDateCde()
                 );
             }
             return new SimpleStringProperty("");
@@ -139,9 +139,7 @@ public class CommandeTableController {
         // Date de livraison
         colDateLivraison.setCellValueFactory(cellData -> {
             if (cellData.getValue().getDateLiv() != null) {
-                return new SimpleStringProperty(
-                        String.format(String.valueOf(dateFormatter))
-                );
+                return new SimpleStringProperty(cellData.getValue().getDateLiv());
             }
             return new SimpleStringProperty("-");
         });

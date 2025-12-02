@@ -135,7 +135,7 @@ public class ClientPMRepo {
         return clientPMList;
     }
 
-    protected ClientPM mapResultSetToClientPM(ResultSet rs) throws SQLException {
+    protected static ClientPM mapResultSetToClientPM(ResultSet rs) throws SQLException {
         ClientPM clientPM = new ClientPM();
         clientPM.setId(rs.getInt("id"));
         clientPM.setAdresse(rs.getString("adresse"));

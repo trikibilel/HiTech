@@ -61,16 +61,15 @@ public class Smartphone extends Article {
 
     @Override
     public void afficher() {
-        int colSize = 15;
-        System.out.println("-".repeat(colSize * 10));
-        System.out.print("| " + getDesignation() + " ".repeat(colSize - getDesignation().length()) + " |");
-        System.out.print("| " + getPrixHt() + " ".repeat(colSize - String.valueOf(getPrixHt()).length()) + " |");
-        System.out.print("| " + getPromo() + " ".repeat(colSize - String.valueOf(getPromo()).length()) + " |");
-        System.out.print("| " + getQteStock() + " ".repeat(colSize - String.valueOf(getQteStock()).length()) + " |");
-        System.out.print("| " + marque + " ".repeat(colSize - marque.length()) + " |");
-        System.out.print("| " + os + " ".repeat(colSize - os.length()) + " |");
-        System.out.print("| " + taille_ecran + " ".repeat(colSize - String.valueOf(taille_ecran).length()) + " |");
-        System.out.println("| " + ram + " ".repeat(colSize - String.valueOf(ram).length()) + " |");
+        System.out.println("Le smartphone " + getDesignation() +
+                " de marque " + marque +
+                " fonctionne sous " + os +
+                ", dispose de " + ram + " Go de RAM, " +
+                stockage + " Go de stockage, " +
+                "un écran de " + taille_ecran + " pouces. " +
+                "Il est au prix de " + getPrixHt() + " DT HT " +
+                (hasPromo() ? "avec " + getPromo() + "% de réduction " : "") +
+                "et il reste " + getQteStock() + " unités en stock.");
     }
 
     public String toString() {

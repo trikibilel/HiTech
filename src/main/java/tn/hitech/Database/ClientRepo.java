@@ -10,9 +10,6 @@ import java.util.List;
 
 public class ClientRepo {
 
-    ClientPPRepo ppRepo = new ClientPPRepo();
-    ClientPMRepo pmRepo = new ClientPMRepo();
-
     public boolean insert(Client client, boolean isPersonne) {
         String sql = """
                     INSERT INTO clients (adresse, email, telephone, is_personne)
@@ -62,9 +59,9 @@ public class ClientRepo {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     if (rs.getBoolean("is_personne"))
-                        return ppRepo.mapResultSetToClientPP(rs);
+                        return ClientPPRepo.mapResultSetToClientPP(rs);
                     else
-                        return pmRepo.mapResultSetToClientPM(rs);
+                        return ClientPMRepo.mapResultSetToClientPM(rs);
                 }
             }
 
@@ -91,9 +88,9 @@ public class ClientRepo {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     if (rs.getBoolean("is_personne"))
-                        return ppRepo.mapResultSetToClientPP(rs);
+                        return ClientPPRepo.mapResultSetToClientPP(rs);
                     else
-                        return pmRepo.mapResultSetToClientPM(rs);
+                        return ClientPMRepo.mapResultSetToClientPM(rs);
                 }
             }
 
@@ -121,9 +118,9 @@ public class ClientRepo {
 
             while (rs.next()) {
                 if (rs.getBoolean("is_personne"))
-                    clients.add(ppRepo.mapResultSetToClientPP(rs));
+                    clients.add(ClientPPRepo.mapResultSetToClientPP(rs));
                 else
-                    clients.add(pmRepo.mapResultSetToClientPM(rs));
+                    clients.add(ClientPMRepo.mapResultSetToClientPM(rs));
             }
 
         } catch (SQLException e) {

@@ -8,9 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class imprimanteRepo {
-
-    private final ArticleRepo articleDAO = new ArticleRepo();
+public class ImprimanteRepo {
 
     public boolean insert(Imprimante imprimante) {
         Connection conn = null;
@@ -20,8 +18,8 @@ public class imprimanteRepo {
 
             // First, insert into articles table
             String articleSql = """
-                        INSERT INTO articles (designation, image, prix_ht, qte_stock, promo)
-                        VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO articles (designation, image, prix_ht, qte_stock, promo,product_type)
+                        VALUES (?, ?, ?, ?, ?, ?)
                     """;
 
             int refArticle;
@@ -31,6 +29,7 @@ public class imprimanteRepo {
                 pstmt.setDouble(3, imprimante.getPrixHt());
                 pstmt.setInt(4, imprimante.getQteStock());
                 pstmt.setInt(5, imprimante.getPromo());
+                pstmt.setString(6, "imprimante");
 
                 pstmt.executeUpdate();
 
@@ -46,7 +45,7 @@ public class imprimanteRepo {
 
             // Then, insert into imprimantes table
             String imprimanteSql = """
-                        INSERT INTO imprimantes (ref_article, type, marque, page_par_minute)
+                        INSERT INTO imprimantes (ref_article, style_type, marque, page_par_minute)
                         VALUES (?, ?, ?, ?)
                     """;
 
@@ -86,7 +85,7 @@ public class imprimanteRepo {
 
     public Imprimante findById(int refArticle) {
         String sql = """
-                    SELECT a.*, i.type, i.marque, i.page_par_minute
+                    SELECT a.*, i.style_type, i.marque, i.page_par_minute
                     FROM articles a
                     INNER JOIN imprimantes i ON a.ref_article = i.ref_article
                     WHERE a.ref_article = ?
@@ -111,7 +110,7 @@ public class imprimanteRepo {
 
     public List<Imprimante> findAll() {
         String sql = """
-                    SELECT a.*, i.type, i.marque, i.page_par_minute
+                    SELECT a.*, i.style_type, i.marque, i.page_par_minute
                     FROM articles a
                     INNER JOIN imprimantes i ON a.ref_article = i.ref_article
                     ORDER BY a.ref_article
@@ -132,15 +131,15 @@ public class imprimanteRepo {
         return imprimantes;
     }
 
-    private Imprimante mapResultSetToImprimante(ResultSet rs) throws SQLException {
+    protected static Imprimante mapResultSetToImprimante(ResultSet rs) throws SQLException {
         Imprimante imprimante = new Imprimante();
-        imprimante.setRefArticle(rs.getInt("id"));
+        imprimante.setRefArticle(rs.getInt("ref_article"));
         imprimante.setDesignation(rs.getString("designation"));
         imprimante.setImage(rs.getString("image"));
         imprimante.setPrixHt(rs.getDouble("prix_ht"));
         imprimante.setQteStock(rs.getInt("qte_stock"));
         imprimante.setPromo(rs.getInt("promo"));
-        imprimante.setType(Imprimante.Type.valueOf(rs.getString("type")));
+        imprimante.setType(Imprimante.Type.valueOf(rs.getString("style_type")));
         imprimante.setMarque(rs.getString("marque"));
         imprimante.setPageParMinute(rs.getInt("page_par_minute"));
         return imprimante;

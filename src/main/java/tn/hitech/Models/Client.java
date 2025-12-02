@@ -49,7 +49,11 @@ public class Client {
         this.telephone = telephone;
     }
 
-    public void afficher() {}
+    public void afficher() {
+        System.out.println("Le client n°" + id + " habite à " + adresse +
+                ", son email est " + email +
+                " et son téléphone est " + telephone + ".");
+    }
 
     public String toString() {
         return "Client{" + "id=" + id + ", adresse='" + adresse + '\'' + ", email='" + email + '\'' + ", telephone=" + telephone + '}';

@@ -132,7 +132,7 @@ public class ClientPPRepo {
         return clientPPList;
     }
 
-    protected ClientPP mapResultSetToClientPP(ResultSet rs) throws SQLException {
+    protected static ClientPP mapResultSetToClientPP(ResultSet rs) throws SQLException {
         ClientPP clientPP = new ClientPP();
         clientPP.setId(rs.getInt("id"));
         clientPP.setAdresse(rs.getString("adresse"));

@@ -64,6 +64,7 @@ public class DbInitialiser {
                         prix_ht DOUBLE NOT NULL,
                         qte_stock INT NOT NULL DEFAULT 0,
                         promo INT DEFAULT 0,
+                        product_type VARCHAR(100),
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                         INDEX idx_designation (designation),
@@ -98,13 +99,13 @@ public class DbInitialiser {
         String imprimantesTable = """
                     CREATE TABLE IF NOT EXISTS imprimantes (
                         id INT AUTO_INCREMENT PRIMARY KEY,
-                        type VARCHAR(50) NOT NULL,
+                        style_type VARCHAR(50) NOT NULL,
                         marque VARCHAR(100) NOT NULL,
                         page_par_minute INT NOT NULL,
                         ref_article INT NOT NULL,
                         FOREIGN KEY (ref_article) REFERENCES articles(ref_article) 
                             ON DELETE CASCADE ON UPDATE CASCADE,
-                        INDEX idx_type (type),
+                        INDEX idx_type (style_type),
                         INDEX idx_marque (marque),
                         CHECK (page_par_minute > 0)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

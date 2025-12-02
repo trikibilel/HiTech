@@ -58,11 +58,9 @@ public class LigneCmd {
     }
 
     public void afficher() {
-        int colSize = 20;
-        System.out.println("-".repeat(colSize * 4));
-        System.out.print("| " + article.getRefArticle() + " ".repeat(20 - String.valueOf(article.getRefArticle()).length()) + " |");
-        System.out.print("| " + article.getDesignation() + " ".repeat(20 - article.getDesignation().length()) + " |");
-        System.out.print("| " + qte + " ".repeat(20 - String.valueOf(qte).length()) + " |");
-        System.out.println("| " + totalTtcLigne + " ".repeat(20 - String.valueOf(totalTtcLigne).length()) + " |");
+        System.out.println("Ligne de commande: " + qte + " x " +
+                article.getDesignation() +
+                " (réf: " + article.getRefArticle() + ") " +
+                "pour un total de " + totalTtcLigne + " DT TTC.");
     }
 }

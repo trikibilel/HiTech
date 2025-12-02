@@ -31,12 +31,10 @@ public class ClientPP extends Client {
 
     @Override
     public void afficher() {
-        System.out.println("-".repeat(20 * 6));
-        System.out.print("| " + nom + " ".repeat(20 - nom.length()) + " |");
-        System.out.print("| " + prenom + " ".repeat(20 - prenom.length()) + " |");
-        System.out.print("| " + getAdresse() + " ".repeat(20 - getAdresse().length()) + " |");
-        System.out.print("| " + getTelephone() + " ".repeat(20 - String.valueOf(getTelephone()).length()) + " |");
-        System.out.println("| " + getEmail() + " ".repeat(20 - getEmail().length()) + " |");
+        System.out.println("Le client " + prenom + " " + nom +
+                " (ID: " + getId() + ") habite à " + getAdresse() +
+                ", son email est " + getEmail() +
+                " et son téléphone est " + getTelephone() + ".");
     }
 
     public String toString() {

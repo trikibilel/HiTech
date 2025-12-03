@@ -50,7 +50,7 @@ public class Imprimante extends Article {
                 " est de type " + type.name() +
                 " et imprime " + pageParMinute + " pages par minute. " +
                 "Elle est au prix de " + getPrixHt() + " DT HT " +
-                (hasPromo() ? "avec " + getPromo() + "% de réduction " : "") +
+                (promotion() ? "avec " + getPromo() + "% de réduction " : "") +
                 "et il reste " + getQteStock() + " unités en stock.");
     }
 

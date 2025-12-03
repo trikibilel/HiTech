@@ -8,7 +8,7 @@ public class Article {
     private String image;
     private double prixHt;
     private int qteStock;
-    private int promo;
+    private int tauxRemPromo;
 
     public Article() {
         refArticle = 1;
@@ -16,16 +16,17 @@ public class Article {
         image = "image";
         prixHt = 100;
         qteStock = 10;
-        promo = 0;
+        tauxRemPromo = 0;
     }
 
-    public Article(int refArticle, String designation, String image, double prixHt, int qteStock, int promo) {
+    public Article(int refArticle, String designation, String image, double prixHt, int qteStock, int tauxRemPromo) {
         this.refArticle = refArticle;
         this.designation = designation;
         this.image = image;
-        this.prixHt = prixHt;
-        this.qteStock = qteStock;
-        this.promo = promo;
+        setPrixHt(prixHt);
+        setQteStock(qteStock);
+        setPromo(tauxRemPromo);
+
     }
 
     public int getRefArticle() {
@@ -58,7 +59,6 @@ public class Article {
 
     public void setPrixHt(double prixHt) {
         if (prixHt > 0) this.prixHt = prixHt;
-
     }
 
     public int getQteStock() {
@@ -70,19 +70,19 @@ public class Article {
     }
 
     public int getPromo() {
-        return promo;
+        return tauxRemPromo;
     }
 
-    public void setPromo(int promo) {
-        if (promo >= 0 && promo < 100) this.promo = promo;
+    public void setPromo(int tauxRemPromo) {
+        if (tauxRemPromo >= 0 && tauxRemPromo < 100) this.tauxRemPromo = tauxRemPromo;
     }
 
-    public boolean hasPromo() {
-        return promo != 0;
+    public boolean promotion() {
+        return tauxRemPromo != 0;
     }
 
     public double calculerPrixTtc(int qte) {
-        return prixHt * qte * (1 - (double) promo / 100) * (1 + TVA);
+        return prixHt * qte * (1 - (double) tauxRemPromo / 100) * (1 + TVA);
     }
 
     public boolean isDisponible() {
@@ -90,15 +90,30 @@ public class Article {
     }
 
     public void mouvmentStock(int qte) {
-        qteStock += qte;
+        int nouvelleQte = qteStock + qte;
+        if (nouvelleQte > 0)
+            this.qteStock = nouvelleQte;
     }
 
     public void afficher() {
         System.out.println();
         System.out.println("## L'article " + designation + " (réf: " + refArticle + ") " +
                 "est au prix de " + prixHt + " DT HT " +
-                (hasPromo() ? "avec une promotion de " + promo + "% " : "") +
+                (promotion() ? "avec une promotion de " + tauxRemPromo + "% " : "") +
                 "et il y a " + qteStock + " unités en stock.");
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "TVA=" + TVA +
+                ", refArticle=" + refArticle +
+                ", designation='" + designation + '\'' +
+                ", image='" + image + '\'' +
+                ", prixHt=" + prixHt +
+                ", qteStock=" + qteStock +
+                ", promo=" + tauxRemPromo +
+                '}';
     }
 }
 

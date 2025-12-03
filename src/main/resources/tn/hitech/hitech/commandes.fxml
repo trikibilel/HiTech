@@ -32,7 +32,7 @@
                             </font>
                         </Button>
 
-                        <Button fx:id="btnView" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Voir Détails">
+                        <Button fx:id="btnLivrer" style="-fx-font-size: 13px; -fx-cursor: hand;" text="Livrer">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>

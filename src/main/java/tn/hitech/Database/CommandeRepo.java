@@ -12,7 +12,8 @@ import java.util.List;
 
 public class CommandeRepo {
 
-    private final ClientRepo clientDAO = new ClientRepo();
+    private static final ClientRepo clientDAO = new ClientRepo();
+    private final ArticleRepo articleRepo = new ArticleRepo();
 
     public boolean insert(Commande commande) {
         String sql = """
@@ -46,18 +47,27 @@ public class CommandeRepo {
         return false;
     }
 
-    public boolean updateStatus(int id, String newStatus) {
+    public boolean updateStatus(int id, Commande.Etat newStatus) {
         String sql = "UPDATE commandes SET etat_cde = ? WHERE id = ?";
 
         try (Connection conn = DbConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, newStatus);
+            pstmt.setString(1, newStatus.name());
             pstmt.setInt(2, id);
 
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
+                if (newStatus == Commande.Etat.LIVREE) {
+                    LigneCmdRepo.findByCommandeId(id).forEach(ligneCmd -> {
+                        articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(), ligneCmd.getArticle().getQteStock() - ligneCmd.getQte());
+                    });
+                } else if (newStatus == Commande.Etat.ANNULEE) {
+                    LigneCmdRepo.findByCommandeId(id).forEach(ligneCmd -> {
+                        articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(), ligneCmd.getArticle().getQteStock() + ligneCmd.getQte());
+                    });
+                }
                 return true;
             }
 
@@ -67,7 +77,7 @@ public class CommandeRepo {
         return false;
     }
 
-    public Commande findById(int id) {
+    public static Commande findById(int id) {
         String sql = "SELECT * FROM commandes WHERE id = ?";
 
         try (Connection conn = DbConnection.getConnection();
@@ -128,7 +138,7 @@ public class CommandeRepo {
         return commandes;
     }
 
-    private Commande mapResultSetToCommande(ResultSet rs) throws SQLException {
+    private static Commande mapResultSetToCommande(ResultSet rs) throws SQLException {
         Commande commande = new Commande();
         commande.setId(rs.getInt("id"));
         commande.setDateCde(new Date(rs.getString("date_cde")));
@@ -138,7 +148,7 @@ public class CommandeRepo {
 
         // Load client
         int clientId = rs.getInt("client_id");
-        Client client = clientDAO.findById(clientId);
+        Client client = ClientRepo.findById(clientId);
         commande.setClient(client);
 
         return commande;

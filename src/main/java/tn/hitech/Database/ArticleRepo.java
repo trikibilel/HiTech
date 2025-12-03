@@ -41,7 +41,7 @@ public class ArticleRepo {
         return false;
     }
 
-    public Article findById(int refArticle) {
+    public static Article findById(int refArticle) {
         String sql = """
                 (
                      SELECT

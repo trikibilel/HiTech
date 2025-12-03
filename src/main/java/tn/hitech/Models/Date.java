@@ -80,7 +80,7 @@ public class Date {
                 break;
 
             case 2:
-                maxDays = isLeapYear(a) ? 29 : 28;
+                maxDays = bisextiles(a) ? 29 : 28;
                 break;
 
             default:
@@ -92,8 +92,8 @@ public class Date {
         }
     }
 
-    private boolean isLeapYear(int year) {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    private boolean bisextiles(int year) {
+        return (year % 4 == 0);
     }
 
     @Override

@@ -99,6 +99,7 @@ public class Commande {
         ligneCmds.forEach(c -> {
             c.getArticle().mouvmentStock(-c.getQte());
         });
+        System.out.println("## Commande "+ id+" livree");
     }
 
     public void annuler() {
@@ -106,6 +107,7 @@ public class Commande {
         ligneCmds.forEach(c -> {
             c.getArticle().mouvmentStock(c.getQte());
         });
+        System.out.println("## Commande "+ id+" annulee");
     }
 
     public void afficher() {

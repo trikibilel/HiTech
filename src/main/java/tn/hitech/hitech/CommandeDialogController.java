@@ -15,6 +15,7 @@ import tn.hitech.Models.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CommandeDialogController {
 
@@ -69,6 +70,7 @@ public class CommandeDialogController {
     private ArticleRepo articleRepo = new ArticleRepo();
     private CommandeRepo commandeRepo = new CommandeRepo();
     private LigneCmdRepo ligneCmdRepo = new LigneCmdRepo();
+    private CommandeTableController opener;
 
     private final DecimalFormat moneyFormat = new DecimalFormat("#,##0.00");
 
@@ -98,6 +100,10 @@ public class CommandeDialogController {
         if (client != null && client.getAdresse() != null) {
             txtAdresseLivraison.setText(client.getAdresse());
         }
+    }
+
+    public void setContext(CommandeTableController controller) {
+        this.opener = controller;
     }
 
     private void setupArticleComboBox() {
@@ -333,8 +339,8 @@ public class CommandeDialogController {
 
         // Create Commande object
         commandeResult.setClient(currentClient);
-        commandeResult.setDateCde(new Date(String.valueOf(dateCommande.getValue())));
-        commandeResult.setDateLiv(new Date(String.valueOf(dateLivraison.getValue())));
+        commandeResult.setDateCde(new Date(dateCommande.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        commandeResult.setDateLiv(new Date(dateLivraison.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
         commandeResult.setLigneCmds(FXCollections.observableArrayList(lignesCommande));
         commandeResult.setMoyenPayement(Commande.PayMethode.CARTE);
         commandeRepo.insert(commandeResult);
@@ -359,6 +365,7 @@ public class CommandeDialogController {
     }
 
     private void closeDialog() {
+        opener.loadCommandes();
         Stage stage = (Stage) btnEnregistrer.getScene().getWindow();
         stage.close();
     }

@@ -11,9 +11,6 @@ import java.util.List;
 
 public class LigneCmdRepo {
 
-    private final ArticleRepo articleDAO = new ArticleRepo();
-    private final CommandeRepo commandeDAO = new CommandeRepo();
-
     public boolean insert(LigneCmd ligneCmd) {
         String sql = """
                     INSERT INTO ligne_cmds (qte, total_ttc_ligne, article_id, commande_id)
@@ -83,7 +80,7 @@ public class LigneCmdRepo {
         return lignes;
     }
 
-    public List<LigneCmd> findByCommandeId(int commandeId) {
+    public static List<LigneCmd> findByCommandeId(int commandeId) {
         String sql = "SELECT * FROM ligne_cmds WHERE commande_id = ? ORDER BY id";
         List<LigneCmd> lignes = new ArrayList<>();
 
@@ -124,13 +121,13 @@ public class LigneCmdRepo {
         return 0.0;
     }
 
-    private LigneCmd mapResultSetToLigneCmd(ResultSet rs) throws SQLException {
+    private static LigneCmd mapResultSetToLigneCmd(ResultSet rs) throws SQLException {
         // Load article
         int articleId = rs.getInt("article_id");
-        Article article = articleDAO.findById(articleId);
+        Article article = ArticleRepo.findById(articleId);
         // Load commande
         int commandeId = rs.getInt("commande_id");
-        Commande commande = commandeDAO.findById(commandeId);
+        Commande commande = CommandeRepo.findById(commandeId);
         return new LigneCmd(rs.getInt("id"), rs.getInt("qte"), article, commande);
     }
 }

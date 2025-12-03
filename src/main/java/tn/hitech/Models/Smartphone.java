@@ -74,7 +74,7 @@ public class Smartphone extends Article {
                 stockage + " Go de stockage, " +
                 "un écran de " + taille_ecran + " pouces. " +
                 "Il est au prix de " + getPrixHt() + " DT HT " +
-                (hasPromo() ? "avec " + getPromo() + "% de réduction " : "") +
+                (promotion() ? "avec " + getPromo() + "% de réduction " : "") +
                 "et il reste " + getQteStock() + " unités en stock.");
     }
 

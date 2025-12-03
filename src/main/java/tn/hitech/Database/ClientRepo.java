@@ -41,7 +41,7 @@ public class ClientRepo {
         return false;
     }
 
-    public Client findById(int id) {
+    public static Client findById(int id) {
         String sql = """
                 SELECT c.*, pp.nom, pp.prenom, pm.matricule, pm.raison_sociale
                 FROM clients c

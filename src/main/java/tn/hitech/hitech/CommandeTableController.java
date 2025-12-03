@@ -17,17 +17,15 @@ import tn.hitech.Models.*;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
 
 public class CommandeTableController {
 
     private final DecimalFormat moneyFormat = new DecimalFormat("#,##0.00");
+    public Button btnLivrer;
     @FXML
     private Label lblClientInfo;
     @FXML
     private Button btnAdd;
-    @FXML
-    private Button btnView;
     @FXML
     private Button btnDelete;
     @FXML
@@ -63,7 +61,7 @@ public class CommandeTableController {
     private Client currentClient;
     private CommandeRepo commandeRepo;
     private LigneCmdRepo ligneCmdRepo;
-    private ArticleRepo  articleRepo;
+    private ArticleRepo articleRepo;
 
     @FXML
     public void initialize() {
@@ -158,7 +156,7 @@ public class CommandeTableController {
         btnAdd.setOnAction(event -> handleAddCommande());
 
         // View button
-        btnView.setOnAction(event -> handleViewCommande());
+        btnLivrer.setOnAction(event -> handleLivrerCommande());
 
         // Delete button
         btnDelete.setOnAction(event -> handleDeleteCommande());
@@ -177,7 +175,7 @@ public class CommandeTableController {
         });
     }
 
-    private void loadCommandes() {
+    protected void loadCommandes() {
         if (currentClient == null) {
             return;
         }
@@ -219,7 +217,8 @@ public class CommandeTableController {
             Parent root = loader.load();
 
             CommandeDialogController controller = loader.getController();
-            controller.setClient(currentClient); // Passer le client connecté
+            controller.setClient(currentClient);
+            controller.setContext(this);
 
             Stage stage = new Stage();
             stage.setTitle("ajouter Commande");
@@ -238,9 +237,44 @@ public class CommandeTableController {
             return;
         }
 
-        // Open dialog to view order details
-        showInfo("Détails de la Commande", "Affichage des détails de la commande #" + selectedCommande.getId());
+        StringBuilder details = new StringBuilder("Détails de la commande :\n\n");
+
+        for (LigneCmd l : selectedCommande.getLigneCmds()) {
+            details.append(
+                            "• Article : ").append(l.getArticle().getDesignation())
+                    .append(" | Prix : ").append(l.getTotalTtcLigne())
+                    .append(" | Quantité : ").append(l.getQte())
+                    .append("\n");
+        }
+
+        showInfo("Détails de la Commande", details.toString());
     }
+
+    private void handleLivrerCommande() {
+        Commande selectedCommande = tableCommandes.getSelectionModel().getSelectedItem();
+
+        if (selectedCommande == null) {
+            showWarning("Aucune sélection", "Veuillez sélectionner une commande à livrer.");
+            return;
+        }
+
+        // Confirmation dialog
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirmation");
+        confirmAlert.setHeaderText("Livrer la commande");
+        confirmAlert.setContentText("Êtes-vous sûr de vouloir livrer cette commande ?");
+
+        if (confirmAlert.showAndWait().get() == ButtonType.OK) {
+            if (selectedCommande.getEtatCde() != Commande.Etat.LIVREE) {
+                commandeRepo.updateStatus(selectedCommande.getId(), Commande.Etat.LIVREE);
+                selectedCommande.getLigneCmds().forEach(ligneCmd -> {
+                    articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(), ligneCmd.getArticle().getQteStock() - ligneCmd.getQte());
+                });
+                loadCommandes();
+            }
+        }
+    }
+
 
     private void handleDeleteCommande() {
         Commande selectedCommande = tableCommandes.getSelectionModel().getSelectedItem();
@@ -257,11 +291,13 @@ public class CommandeTableController {
         confirmAlert.setContentText("Êtes-vous sûr de vouloir annuler cette commande ?");
 
         if (confirmAlert.showAndWait().get() == ButtonType.OK) {
-            commandeRepo.updateStatus(selectedCommande.getId(), Commande.Etat.ANNULEE.name());
-            selectedCommande.getLigneCmds().forEach(ligneCmd -> {
-                articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(),ligneCmd.getArticle().getQteStock()+ligneCmd.getQte());
-            });
-            applyFilter();
+            if (selectedCommande.getEtatCde() != Commande.Etat.ANNULEE) {
+                commandeRepo.updateStatus(selectedCommande.getId(), Commande.Etat.ANNULEE);
+                selectedCommande.getLigneCmds().forEach(ligneCmd -> {
+                    articleRepo.updateStock(ligneCmd.getArticle().getRefArticle(), ligneCmd.getArticle().getQteStock() + ligneCmd.getQte());
+                });
+                loadCommandes();
+            }
         }
     }
 

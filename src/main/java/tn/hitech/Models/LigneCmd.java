@@ -68,4 +68,15 @@ public class LigneCmd {
                 " (réf: " + article.getRefArticle() + ") " +
                 "pour un total de " + totalTtcLigne + " DT TTC.");
     }
+
+    @Override
+    public String toString() {
+        return "LigneCmd{" +
+                "id=" + id +
+                ", qte=" + qte +
+                ", totalTtcLigne=" + totalTtcLigne +
+                ", article=" + article +
+                ", commande=" + commande +
+                '}';
+    }
 }

@@ -52,11 +52,7 @@ Default values in the project:
 The app environment requires database tables.  
 `DbInitialiser.initialise()` is called automatically when the JavaFX app starts (`HiTechApplication`), so tables are created if they do not exist.
 
-You can also run the initializer directly:
-
-```bash
-./mvnw -q -DskipTests exec:java -Dexec.mainClass=tn.hitech.Database.config.DbInitialiser
-```
+You can also run `DbInitialiser.main()` directly from your IDE if you want to reset and recreate tables.
 
 > Note: `DbInitialiser.main()` drops and recreates all tables before initializing.
 
